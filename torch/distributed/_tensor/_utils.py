@@ -332,3 +332,18 @@ def compute_padded_and_unpadded_local_shape(
                 cur_unpadded_shard_size.append(0)
 
     return tuple(full_shard_size), tuple(cur_unpadded_shard_size)
+
+
+def compute_padding_size(
+    padded_size: Sequence[int], unpadded_size: Sequence[int]
+) -> Tuple[int, ...]:
+    """
+    Given the padded and unpadded shape of a tensor, returns a tuple of padding.
+    padding_size[i] is the size of padding needed on the i-th tensor dimension.
+    """
+    assert len(padded_size) == len(unpadded_size)
+    padding_size = [
+        padded_size_on_dim - unpadded_size_on_dim
+        for padded_size_on_dim, unpadded_size_on_dim in zip(padded_size, unpadded_size)
+    ]
+    return tuple(padding_size)
