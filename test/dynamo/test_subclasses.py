@@ -1909,23 +1909,21 @@ class TestNestedTensor(torch._dynamo.test_case.TestCase):
                     guard_str,
                     """\
 Eq(s5 - 1, s2)
-Eq(s11 - 1, s6)
-Eq(s10, s8)""",
+Eq(s12 - 1, s7)
+Eq(s11, s9)""",
                 )
             elif nt_view_name.startswith("base_is_nt_True"):
                 self.assertExpectedInline(
                     guard_str,
-                    """\
-Eq(s3 - 1, s0)
-Eq(s1, s6)""",
+                    """Eq(s3 - 1, s0)""",
                 )
             else:
                 self.assertExpectedInline(
                     guard_str,
                     """\
 Eq(s4 - 1, s1)
-Eq(s12 - 1, s7)
-Eq(s11, s9)""",
+Eq(s13 - 1, s8)
+Eq(s12, s10)""",
                 )
             return gm
 
