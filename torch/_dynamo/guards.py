@@ -2238,6 +2238,8 @@ class CheckFunctionManager:
             # Insert the global_state guard
             assert self.guard_manager  # to make mypy happy
             self.guard_manager.root.add_global_state_guard(["___check_global_state()"])
+
+            self.guard_manager.root.add_torch_function_mode_stack_guard([], [""])
         else:
             # Don't report this guard, it's always the same, useless!
             global_guard = "___check_global_state()"
