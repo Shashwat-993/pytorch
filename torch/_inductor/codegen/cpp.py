@@ -4061,9 +4061,6 @@ class KernelGroup:
             "linux",
             "win32",
         ]
-        # profiler_mark_wrapper_call will also result in RECORD_FUNCTION annotations, requiring this import
-        if enable_kernel_profile or config.profiler_mark_wrapper_call:
-            code.writelines(["#include <ATen/record_function.h>"])
         code.writeline(codecache.cpp_prefix())
 
         # 2. Function definition

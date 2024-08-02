@@ -114,13 +114,6 @@ class CppTemplate(KernelTemplate):
                 #include "c10/util/Unroll.h"
             """
         )
-        enable_kernel_profile = config.cpp.enable_kernel_profile and sys.platform in [
-            "linux",
-            "win32",
-        ]
-        # profiler_mark_wrapper_call will also result in RECORD_FUNCTION annotations, requiring this import
-        if enable_kernel_profile or config.profiler_mark_wrapper_call:
-            res.writelines(["#include <ATen/record_function.h>"])
         return res
 
     def render(self, **kwargs) -> str:
