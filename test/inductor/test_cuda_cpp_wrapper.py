@@ -62,8 +62,7 @@ test_failures_cuda_wrapper = {
 
 
 if config.abi_compatible:
-    xfail_list = [
-    ]
+    xfail_list = []
     for test_name in xfail_list:
         test_failures_cuda_wrapper[test_name] = test_torchinductor.TestFailure(
             ("cuda_wrapper",), is_skip=False

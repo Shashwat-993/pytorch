@@ -3,13 +3,12 @@ import ctypes
 import functools
 import itertools
 import logging
-import sys
 from typing import Callable, List, Optional
 from unittest.mock import patch
 
 import sympy
 
-from .. import codecache, config, ir
+from .. import codecache, ir
 from ..autotune_process import CppBenchmarkRequest, TensorMeta
 from ..utils import IndentedBuffer, Placeholder, unique
 from ..virtualized import V
