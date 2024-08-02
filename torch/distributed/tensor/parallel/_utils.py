@@ -8,7 +8,7 @@ from torch.distributed.device_mesh import _mesh_resources
 
 
 try:
-    from torch._dynamo.external_utils import is_compiling as is_torchdynamo_compiling
+    from torch.compiler import is_compiling as is_torchdynamo_compiling
 except Exception:
 
     def is_torchdynamo_compiling():  # type: ignore[misc]
