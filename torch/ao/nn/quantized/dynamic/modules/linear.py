@@ -35,6 +35,7 @@ class Linear(nnq.Linear):
         >>> print(output.size())
         torch.Size([128, 30])
     """
+
     # version used in this class is different from the parent class nnq.Linear
     _version = 4
 

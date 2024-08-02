@@ -1311,9 +1311,11 @@ def emit_body(
             setup.extend(
                 ASSIGN_GRAD_FN.substitute(
                     op=op,
-                    op_ctor=""
-                    if info is not None and info.has_derivatives
-                    else f'"{cpp.name(f.func)}"',
+                    op_ctor=(
+                        ""
+                        if info is not None and info.has_derivatives
+                        else f'"{cpp.name(f.func)}"'
+                    ),
                     args_with_derivatives=[arg.name for arg in args_with_derivatives],
                 ).split("\n")
             )
@@ -1334,9 +1336,11 @@ def emit_body(
             setup.extend(
                 ASSIGN_VECTOR_OF_GRAD_FN.substitute(
                     op=op,
-                    op_ctor=""
-                    if info is not None and info.has_derivatives
-                    else f'"{cpp.name(f.func)}"',
+                    op_ctor=(
+                        ""
+                        if info is not None and info.has_derivatives
+                        else f'"{cpp.name(f.func)}"'
+                    ),
                     args_with_derivatives=args,
                     irange=f"{list_like_arg}.size()",
                 ).split("\n")

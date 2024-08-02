@@ -6419,10 +6419,14 @@ def forward(self, x, y):
         ]
         self.assertEqual(
             len(repeat_nodes),
-            1
-            if is_non_strict_test(self._testMethodName)
-            and not is_training_ir_test(self._testMethodName)
-            else 0,
+            (
+                1
+                if (
+                    is_non_strict_test(self._testMethodName)
+                    and not is_training_ir_test(self._testMethodName)
+                )
+                else 0
+            ),
         )
 
     def test_checks_to_constrain_range(self):

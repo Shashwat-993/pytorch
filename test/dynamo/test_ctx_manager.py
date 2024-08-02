@@ -1080,11 +1080,7 @@ class CtxManagerTests(torch._dynamo.test_case.TestCase):
             def f(x, y):
                 return x + y
 
-            x, y = torch.ones(
-                1,
-            ), torch.zeros(
-                1,
-            )
+            x, y = torch.ones(1), torch.zeros(1)
             return f(x, y)
 
         eager = EagerAndRecordGraphs()
@@ -1101,7 +1097,6 @@ class GraphModule(torch.nn.Module):
         _saved_tensors_hooks_disable = torch._C._autograd._saved_tensors_hooks_disable('This is not supported');  _saved_tensors_hooks_disable = None
 
         x: "f32[1]" = torch.ones(1)
-
         y: "f32[1]" = torch.zeros(1)
 
         add: "f32[1]" = x + y;  x = y = None
@@ -1117,11 +1112,7 @@ class GraphModule(torch.nn.Module):
             def f(x, y):
                 return x + y
 
-            x, y = torch.ones(
-                1,
-            ), torch.zeros(
-                1,
-            )
+            x, y = torch.ones(1), torch.zeros(1)
             return f(x, y)
 
         eager = EagerAndRecordGraphs()
@@ -1141,7 +1132,6 @@ class GraphModule(torch.nn.Module):
         _saved_tensors_hooks_disable = torch._C._autograd._saved_tensors_hooks_disable('This is not supported');  _saved_tensors_hooks_disable = None
 
         x: "f32[1]" = torch.ones(1)
-
         y: "f32[1]" = torch.zeros(1)
 
         add: "f32[1]" = x + y;  x = y = None
@@ -1163,11 +1153,7 @@ class GraphModule(torch.nn.Module):
 
                 return inner_fn(x, y) + x
 
-            x, y = torch.ones(
-                1,
-            ), torch.zeros(
-                1,
-            )
+            x, y = torch.ones(1), torch.zeros(1)
             return f(x, y)
 
         eager = EagerAndRecordGraphs()
@@ -1187,7 +1173,6 @@ class GraphModule(torch.nn.Module):
         _saved_tensors_hooks_disable = torch._C._autograd._saved_tensors_hooks_disable('This is not supported');  _saved_tensors_hooks_disable = None
 
         x: "f32[1]" = torch.ones(1)
-
         y: "f32[1]" = torch.zeros(1)
 
         _saved_tensors_hooks_disable_1 = torch._C._autograd._saved_tensors_hooks_disable('This is not supported inner');  _saved_tensors_hooks_disable_1 = None

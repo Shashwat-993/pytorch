@@ -2042,9 +2042,7 @@ def wrap_fx_proxy_cls(
             specialized_props["class_type"] = (
                 torch.nn.Parameter
                 if is_parameter
-                else torch.nn.Buffer
-                if is_buffer
-                else tensor_type
+                else (torch.nn.Buffer if is_buffer else tensor_type)
             )
 
         options.update(specialized_props)
@@ -2733,20 +2731,20 @@ class SourcelessBuilder:
         handlers[immutable_list] = handlers[list]
         handlers[types.ModuleType] = lambda tx, value: PythonModuleVariable(value)
 
-        handlers[
-            torch.distributions.constraints._Real
-        ] = lambda tx, value: UserDefinedObjectVariable(
-            value, mutable_local=MutableLocal()
+        handlers[torch.distributions.constraints._Real] = (
+            lambda tx, value: UserDefinedObjectVariable(
+                value, mutable_local=MutableLocal()
+            )
         )
-        handlers[
-            torch.distributions.constraints._Interval
-        ] = lambda tx, value: UserDefinedObjectVariable(
-            value, mutable_local=MutableLocal()
+        handlers[torch.distributions.constraints._Interval] = (
+            lambda tx, value: UserDefinedObjectVariable(
+                value, mutable_local=MutableLocal()
+            )
         )
-        handlers[
-            torch.distributions.constraints.Constraint
-        ] = lambda tx, value: UserDefinedObjectVariable(
-            value, mutable_local=MutableLocal()
+        handlers[torch.distributions.constraints.Constraint] = (
+            lambda tx, value: UserDefinedObjectVariable(
+                value, mutable_local=MutableLocal()
+            )
         )
 
         def passthrough(tx: "InstructionTranslator", value):

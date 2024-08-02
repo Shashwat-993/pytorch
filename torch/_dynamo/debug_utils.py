@@ -182,7 +182,7 @@ class NNModuleToString:
             example_param = next(module.parameters(), None)
             if example_param is not None and example_param.is_cuda:
                 module_str = f"{module_str}.cuda()"
-            model_str += f"{tab*2}self.{module_name} = {module_str}\n"
+            model_str += f"{tab * 2}self.{module_name} = {module_str}\n"
 
         for buffer_name, buffer in gm._buffers.items():
             if buffer is None:
@@ -201,7 +201,9 @@ class NNModuleToString:
                 )
             if buffer.is_cuda:
                 tensor_str = f"{tensor_str}.cuda()"
-            model_str += f"{tab*2}self.register_buffer('{buffer_name}', {tensor_str})\n"
+            model_str += (
+                f"{tab * 2}self.register_buffer('{buffer_name}', {tensor_str})\n"
+            )
 
         for param_name, param in gm._parameters.items():
             if param is None:
@@ -210,7 +212,7 @@ class NNModuleToString:
             if param.is_cuda:
                 maybe_device = ', device="cuda"'
             tensor_str = f"torch.nn.Parameter(torch.randn({list(param.shape)}, dtype={param.dtype}{maybe_device}))"
-            model_str += f"{tab*2}self.{param_name} = {tensor_str}\n"
+            model_str += f"{tab * 2}self.{param_name} = {tensor_str}\n"
 
         # TODO - Keep this code for now. But, I don't think we will need this.
         # attrs = dir(gm)
@@ -418,9 +420,9 @@ def cast_to(dtype, model, inputs):
         model = cast_dtype_args_to_fp64(model)
 
     inputs = tree_map(
-        lambda x: x.to(dtype)
-        if isinstance(x, torch.Tensor) and x.is_floating_point()
-        else x,
+        lambda x: (
+            x.to(dtype) if isinstance(x, torch.Tensor) and x.is_floating_point() else x
+        ),
         inputs,
     )
     return model, inputs
@@ -715,6 +717,7 @@ def aot_graph_input_parser(
 
     class TensorContainer:
         "Container for tensors as attributes"
+
         pass
 
     # Dictionary for tensors from annotations

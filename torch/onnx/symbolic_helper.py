@@ -889,10 +889,12 @@ def _interpolate_size_to_scales(g: jit_utils.GraphContext, input, output_size, d
         scales = g.op("Concat", offsets, scale_dims, axis_i=0)
     else:
         scales_constant = [
-            1.0
-            if i < 2
-            else float(output_size[-(dim - i)])
-            / float(input.type().sizes()[-(dim - i)])
+            (
+                1.0
+                if i < 2
+                else float(output_size[-(dim - i)])
+                / float(input.type().sizes()[-(dim - i)])
+            )
             for i in range(0, dim)
         ]
         scales = g.op(
@@ -1026,9 +1028,7 @@ def _interpolate_helper(name, dim, interpolate_mode):
         coordinate_transformation_mode = (
             "asymmetric"
             if interpolate_mode == "nearest"
-            else "align_corners"
-            if align_corners
-            else "half_pixel"
+            else "align_corners" if align_corners else "half_pixel"
         )
 
         if scales is None:
@@ -1104,9 +1104,7 @@ def __interpolate_helper(
     coordinate_transformation_mode = (
         "asymmetric"
         if mode == "nearest"
-        else "align_corners"
-        if align_corners
-        else "half_pixel"
+        else "align_corners" if align_corners else "half_pixel"
     )
 
     if not _is_none(size):

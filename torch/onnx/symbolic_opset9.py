@@ -4498,9 +4498,10 @@ def _lstm_full(
     bidirectional,
     batch_first,
 ):
-    hidden, weight = symbolic_helper._unpack_list(
-        hidden_v
-    ), symbolic_helper._unpack_list(weight_v)
+    hidden, weight = (
+        symbolic_helper._unpack_list(hidden_v),
+        symbolic_helper._unpack_list(weight_v),
+    )
     return _generic_rnn(
         g,
         "LSTM",
@@ -4529,9 +4530,10 @@ def _lstm_packed(
     train,
     bidirectional,
 ):
-    hidden, weight = symbolic_helper._unpack_list(
-        hidden_v
-    ), symbolic_helper._unpack_list(weight_v)
+    hidden, weight = (
+        symbolic_helper._unpack_list(hidden_v),
+        symbolic_helper._unpack_list(weight_v),
+    )
     return _generic_rnn(
         g,
         "LSTM",

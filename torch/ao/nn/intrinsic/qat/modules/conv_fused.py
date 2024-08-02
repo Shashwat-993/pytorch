@@ -451,6 +451,7 @@ class ConvBn1d(_ConvBnNd, nn.Conv1d):
         weight_fake_quant: fake quant module for weight
 
     """
+
     _FLOAT_BN_MODULE = nn.BatchNorm1d
     _FLOAT_RELU_MODULE: None = None
     _FLOAT_MODULE = nni.ConvBn1d
@@ -519,6 +520,7 @@ class ConvBnReLU1d(ConvBn1d):
         weight_fake_quant: fake quant module for weight
 
     """
+
     # base class defines _FLOAT_MODULE as "ConvBn1d"
     _FLOAT_MODULE = nni.ConvBnReLU1d  # type: ignore[assignment]
     _FLOAT_CONV_MODULE = nn.Conv1d
@@ -585,6 +587,7 @@ class ConvReLU1d(nnqat.Conv1d, nni._FusedModule):
         weight_fake_quant: fake quant module for weight
 
     """
+
     _FLOAT_MODULE = nni.ConvReLU1d  # type: ignore[assignment]
     _FLOAT_CONV_MODULE = nn.Conv1d
     _FLOAT_BN_MODULE: None = None
@@ -648,6 +651,7 @@ class ConvBn2d(_ConvBnNd, nn.Conv2d):
         weight_fake_quant: fake quant module for weight
 
     """
+
     _FLOAT_MODULE = nni.ConvBn2d
     _FLOAT_CONV_MODULE = nn.Conv2d
     _FLOAT_BN_MODULE = nn.BatchNorm2d
@@ -716,6 +720,7 @@ class ConvBnReLU2d(ConvBn2d):
         weight_fake_quant: fake quant module for weight
 
     """
+
     # base class defines _FLOAT_MODULE as "ConvBn2d"
     _FLOAT_MODULE = nni.ConvBnReLU2d  # type: ignore[assignment]
     _FLOAT_CONV_MODULE = nn.Conv2d
@@ -782,6 +787,7 @@ class ConvReLU2d(nnqat.Conv2d, nni._FusedModule):
         weight_fake_quant: fake quant module for weight
 
     """
+
     _FLOAT_MODULE = nni.ConvReLU2d  # type: ignore[assignment]
     _FLOAT_CONV_MODULE = nn.Conv2d
     _FLOAT_BN_MODULE: None = None
@@ -845,6 +851,7 @@ class ConvBn3d(_ConvBnNd, nn.Conv3d):
         weight_fake_quant: fake quant module for weight
 
     """
+
     _FLOAT_MODULE = nni.ConvBn3d
     _FLOAT_CONV_MODULE = nn.Conv3d
     _FLOAT_BN_MODULE = nn.BatchNorm3d
@@ -913,6 +920,7 @@ class ConvBnReLU3d(ConvBn3d):
         weight_fake_quant: fake quant module for weight
 
     """
+
     _FLOAT_MODULE = nni.ConvBnReLU3d  # type: ignore[assignment]
     _FLOAT_CONV_MODULE = nn.Conv3d
     _FLOAT_BN_MODULE = nn.BatchNorm3d
@@ -980,6 +988,7 @@ class ConvReLU3d(nnqat.Conv3d, nni._FusedModule):
         weight_fake_quant: fake quant module for weight
 
     """
+
     _FLOAT_MODULE = nni.ConvReLU3d  # type: ignore[assignment]
     _FLOAT_CONV_MODULE = nn.Conv3d
     _FLOAT_BN_MODULE: None = None

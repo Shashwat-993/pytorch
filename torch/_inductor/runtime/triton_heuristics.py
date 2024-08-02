@@ -457,9 +457,11 @@ class CachingAutotuner(KernelInterface):
             "bin": binary,
             "launch_enter_hook": CompiledKernel.launch_enter_hook,
             "launch_exit_hook": CompiledKernel.launch_exit_hook,
-            "metadata": binary.packed_metadata
-            if hasattr(binary, "packed_metadata")
-            else binary.metadata,
+            "metadata": (
+                binary.packed_metadata
+                if hasattr(binary, "packed_metadata")
+                else binary.metadata
+            ),
             "shared": binary_shared,
         }
 
@@ -732,21 +734,27 @@ class CachingAutotuner(KernelInterface):
         key = self.inductor_meta.get("kernel_name", None)  # unique kernel name
         assert key is not None, "kernel_name can not be None"
         params = {
-            "mangled_name": launcher.bin.metadata.name
-            if hasattr(launcher.bin.metadata, "name")
-            else launcher.bin.metadata["name"],
+            "mangled_name": (
+                launcher.bin.metadata.name
+                if hasattr(launcher.bin.metadata, "name")
+                else launcher.bin.metadata["name"]
+            ),
             "grid_x": grid_x,
             "grid_y": grid_y,
             "grid_z": grid_z,
             "x_block": launcher.config.kwargs.get("XBLOCK", 1),
             "y_block": launcher.config.kwargs.get("YBLOCK", None),
             "z_block": launcher.config.kwargs.get("ZBLOCK", None),
-            "num_warps": launcher.bin.num_warps
-            if hasattr(launcher.bin, "num_warps")
-            else launcher.bin.metadata.num_warps,
-            "shared_mem": launcher.bin.shared
-            if hasattr(launcher.bin, "shared")
-            else launcher.bin.metadata.shared,
+            "num_warps": (
+                launcher.bin.num_warps
+                if hasattr(launcher.bin, "num_warps")
+                else launcher.bin.metadata.num_warps
+            ),
+            "shared_mem": (
+                launcher.bin.shared
+                if hasattr(launcher.bin, "shared")
+                else launcher.bin.metadata.shared
+            ),
             "stream": stream,
             # User defined triton kernels will have arbitrary kwarg names
             "meta": launcher.config.kwargs,
@@ -903,7 +911,7 @@ def end_graph(output_file):
     cur_file = inspect.stack()[1].filename
     summary_str = (
         f"SUMMARY ({cur_file})\n"
-        f"{overall_time:.2f}ms   \t {overall_gb:.2f} GB\t {overall_gb/(overall_time/1e3):.2f}GB/s"
+        f"{overall_time:.2f}ms   \t {overall_gb:.2f} GB\t {overall_gb / (overall_time / 1e3):.2f}GB/s"
     )
     print(summary_str)
     print()
@@ -918,7 +926,7 @@ def end_graph(output_file):
                 file.write(f"TRITON KERNELS BANDWIDTH INFO ({cur_file})\n")
                 for ms, num_gb, gb_per_s, kernel_name in sorted_calls:
                     # also display the runtime percentage for each kernel
-                    percentage = f"{ms/overall_time*100:.2f}%"
+                    percentage = f"{ms / overall_time * 100:.2f}%"
                     suffix = f" \t {percentage} \t {kernel_name}"
                     bw_info_str = create_bandwidth_info_str(
                         ms,

@@ -116,8 +116,7 @@ class PackedSequence(PackedSequence_):
         dtype: torch.dtype,
         non_blocking: bool = ...,
         copy: bool = ...,
-    ) -> Self:
-        ...
+    ) -> Self: ...
 
     @overload
     def to(
@@ -126,8 +125,7 @@ class PackedSequence(PackedSequence_):
         dtype: Optional[torch.dtype] = ...,
         non_blocking: bool = ...,
         copy: bool = ...,
-    ) -> Self:
-        ...
+    ) -> Self: ...
 
     @overload
     def to(
@@ -135,8 +133,7 @@ class PackedSequence(PackedSequence_):
         other: Tensor,
         non_blocking: bool = ...,
         copy: bool = ...,
-    ) -> Self:
-        ...
+    ) -> Self: ...
 
     def to(self, *args: Any, **kwargs: Any) -> Self:
         r"""Perform dtype and/or device conversion on `self.data`.

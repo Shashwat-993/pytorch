@@ -237,8 +237,7 @@ def dynamo_timed(
     original_function: Callable[_P, T],
     phase_name: Optional[str] = None,
     fwd_only: bool = True,
-) -> Callable[_P, T]:
-    ...
+) -> Callable[_P, T]: ...
 
 
 @overload
@@ -246,8 +245,7 @@ def dynamo_timed(
     original_function: Literal[None] = None,
     phase_name: Optional[str] = None,
     fwd_only: bool = True,
-) -> Callable[[Callable[_P, T]], Callable[_P, T]]:
-    ...
+) -> Callable[[Callable[_P, T]], Callable[_P, T]]: ...
 
 
 def dynamo_timed(
@@ -335,15 +333,13 @@ def dynamo_timed(
 
 
 @overload
-def compile_times(repr: Literal["str"], aggregate: bool = False) -> str:
-    ...
+def compile_times(repr: Literal["str"], aggregate: bool = False) -> str: ...
 
 
 @overload
 def compile_times(
     repr: Literal["csv"], aggregate: bool = False
-) -> Tuple[List[str], List[object]]:
-    ...
+) -> Tuple[List[str], List[object]]: ...
 
 
 def compile_times(repr="str", aggregate: bool = False):
@@ -543,20 +539,17 @@ class ExactWeakKeyDictionary:
 
 
 @overload
-def istype(obj: object, allowed_types: Type[T]) -> TypeGuard[T]:
-    ...
+def istype(obj: object, allowed_types: Type[T]) -> TypeGuard[T]: ...
 
 
 @overload
 def istype(
     obj: object, allowed_types: Tuple[Type[List[T]], Type[Tuple[T, ...]]]
-) -> TypeGuard[T]:
-    ...
+) -> TypeGuard[T]: ...
 
 
 @overload
-def istype(obj: object, allowed_types: Iterable[type]) -> bool:
-    ...
+def istype(obj: object, allowed_types: Iterable[type]) -> bool: ...
 
 
 def istype(obj, allowed_types):
@@ -781,13 +774,13 @@ class BwdCompilationMetrics:
 DEFAULT_COMPILATION_METRICS_LIMIT = 64
 
 
-_compilation_metrics: Deque[
-    Union[CompilationMetrics, BwdCompilationMetrics]
-] = collections.deque(maxlen=DEFAULT_COMPILATION_METRICS_LIMIT)
+_compilation_metrics: Deque[Union[CompilationMetrics, BwdCompilationMetrics]] = (
+    collections.deque(maxlen=DEFAULT_COMPILATION_METRICS_LIMIT)
+)
 
 
 def record_compilation_metrics(
-    compilation_metrics: Union[CompilationMetrics, BwdCompilationMetrics]
+    compilation_metrics: Union[CompilationMetrics, BwdCompilationMetrics],
 ):
     global _compilation_metrics
     _compilation_metrics.append(compilation_metrics)

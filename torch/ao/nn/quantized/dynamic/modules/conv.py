@@ -132,6 +132,7 @@ class Conv2d(nnq.Conv2d):
         >>> output = m(input)
 
     """
+
     _FLOAT_MODULE = nn.Conv2d
     _NNIQAT_CONV_BN_MODULE = None  # type: ignore[assignment]
     _NNI_CONV_RELU_MODULE = None  # type: ignore[assignment]
@@ -216,6 +217,7 @@ class Conv3d(nnq.Conv3d):
         >>> output = m(input)
 
     """
+
     _FLOAT_MODULE = nn.Conv3d
     _NNIQAT_CONV_BN_MODULE = None  # type: ignore[assignment]
     _NNI_CONV_RELU_MODULE = None  # type: ignore[assignment]

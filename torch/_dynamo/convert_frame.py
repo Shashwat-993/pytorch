@@ -322,9 +322,9 @@ def exception_handler(
 
 
 FRAME_COUNTER = 0
-FRAME_COMPILE_COUNTER: typing.Counter[
-    Union[int, FrameStateSizeEntry]
-] = collections.Counter()
+FRAME_COMPILE_COUNTER: typing.Counter[Union[int, FrameStateSizeEntry]] = (
+    collections.Counter()
+)
 
 
 def maybe_cprofile(func: Callable[_P, _T]) -> Callable[_P, _T]:
@@ -1126,8 +1126,7 @@ class ConvertFrameProtocol(typing.Protocol):
         frame_state: Dict[str, Union[int, FrameStateSizeEntry]],
         *,
         skip: int = 0,
-    ) -> Optional[GuardedCode]:
-        ...
+    ) -> Optional[GuardedCode]: ...
 
 
 class CatchErrorsWrapper:

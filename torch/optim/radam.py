@@ -1,6 +1,7 @@
 # mypy: allow-untyped-decorators
 # mypy: allow-untyped-defs
 r"""Implementation for the RAdam algorithm."""
+
 from typing import cast, List, Optional, Tuple, Union
 
 import torch
@@ -506,14 +507,16 @@ def _multi_tensor_radam(
         else:
             rect = [
                 (
-                    (rho_t - 4)  # type: ignore[arg-type]
-                    * (rho_t - 2)
-                    * rho_inf
-                    / ((rho_inf - 4) * (rho_inf - 2) * rho_t)
+                    (
+                        (rho_t - 4)  # type: ignore[arg-type]
+                        * (rho_t - 2)
+                        * rho_inf
+                        / ((rho_inf - 4) * (rho_inf - 2) * rho_t)
+                    )
+                    ** 0.5
+                    if rho_t > 5
+                    else 0
                 )
-                ** 0.5
-                if rho_t > 5
-                else 0
                 for rho_t in rho_t_list
             ]
             unrectified = [0 if rect > 0 else 1.0 for rect in rect]

@@ -27,9 +27,9 @@ _P = ParamSpec("_P")
 
 # TODO: relax key type here; torch registrations should be possible to; but
 # right now this type is accurate
-global_decomposition_table: Dict[
-    str, Dict[torch._ops.OperatorBase, Callable]
-] = defaultdict(dict)
+global_decomposition_table: Dict[str, Dict[torch._ops.OperatorBase, Callable]] = (
+    defaultdict(dict)
+)
 
 decomposition_table = global_decomposition_table["post_autograd"]
 pre_autograd_decomposition_table = global_decomposition_table["pre_autograd"]

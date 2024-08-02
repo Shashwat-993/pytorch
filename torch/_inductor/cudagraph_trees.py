@@ -132,6 +132,7 @@ from . import config
 @dataclasses.dataclass(frozen=True)
 class GraphID:
     "Unique counter of a cuda graph recording"
+
     id: int
 
 
@@ -715,6 +716,7 @@ class OutputAliasInfo:
 
 class _UnaliasedStorage(OutputAliasInfo):
     "Singleton to mark that the graph output constructs a new alias or is None"
+
     pass
 
 
@@ -723,6 +725,7 @@ UnaliasedStorage = _UnaliasedStorage()
 
 class AliasesPriorGraphOutput(OutputAliasInfo):
     "Marks that the graph output aliases an output of a prior graph"
+
     __slots__ = ["index"]
 
     index: PathOutputIndex
@@ -872,9 +875,11 @@ class CUDAGraphNode:
 
         # precompute expanded dims to avoid computing in the hot path
         self.expanded_dims: List[List[int]] = [
-            get_expanded_dims(x)
-            if isinstance(x, torch.Tensor) and idx not in self.static_input_idxs
-            else []
+            (
+                get_expanded_dims(x)
+                if isinstance(x, torch.Tensor) and idx not in self.static_input_idxs
+                else []
+            )
             for idx, x in enumerate(inputs)
         ]
 
@@ -918,9 +923,11 @@ class CUDAGraphNode:
         # non owning and do not prevent deallocation. On subsequent executions, input values
         # will be copied over to these tensors.
         self.reconstructed_inputs: List[InputType] = [
-            self._reconstruct_from_tensor_metadata(self._tensor_metadata(x))
-            if isinstance(x, torch.Tensor)
-            else x
+            (
+                self._reconstruct_from_tensor_metadata(self._tensor_metadata(x))
+                if isinstance(x, torch.Tensor)
+                else x
+            )
             for x in recording_inputs
         ]
 
@@ -1242,7 +1249,7 @@ class CUDAGraphNode:
                     "Expected all cuda outputs in cuda graph recording. Non cuda output "
                     f"from {self.stack_traces[i] if self.stack_traces else '(unknown)'}"
                 ),
-            ),
+            )
 
             ref = static_input_persistent_storage_ptrs.get(
                 o.untyped_storage().data_ptr(), None
@@ -2191,7 +2198,7 @@ class CUDAGraphTreeManager:
         constants: Tuple[torch.Tensor, ...],
         placeholders: Tuple[PlaceholderInfo, ...],
         mutated_input_idxs: Tuple[int, ...],
-    ) -> Tuple[ModelType, OutputType,]:
+    ) -> Tuple[ModelType, OutputType]:
         id = self.new_func_id()
         self.ids_to_stack_traces[id] = stack_traces
         self.ids_to_funcs[id] = WrappedFunction(

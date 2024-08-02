@@ -97,17 +97,13 @@ NO_SERIALIZED_TYPE_NAME_FOUND = "NO_SERIALIZED_TYPE_NAME_FOUND"
 
 
 class KeyEntry(Protocol):
-    def __hash__(self) -> int:
-        ...
+    def __hash__(self) -> int: ...
 
-    def __eq__(self, other: object) -> bool:
-        ...
+    def __eq__(self, other: object) -> bool: ...
 
-    def __str__(self) -> str:
-        ...
+    def __str__(self) -> str: ...
 
-    def get(self, parent: Any) -> Any:
-        ...
+    def get(self, parent: Any) -> Any: ...
 
 
 Context = Any
@@ -413,7 +409,7 @@ def _tuple_flatten(d: Tuple[Any, ...]) -> Tuple[List[Any], Context]:
 
 
 def _tuple_flatten_with_keys(
-    d: Tuple[Any, ...]
+    d: Tuple[Any, ...],
 ) -> Tuple[List[Tuple[KeyEntry, Any]], Context]:
     values, context = _tuple_flatten(d)
     return [(SequenceKey(i), v) for i, v in enumerate(values)], context
@@ -441,7 +437,7 @@ def _dict_flatten(d: Dict[Any, Any]) -> Tuple[List[Any], Context]:
 
 
 def _dict_flatten_with_keys(
-    d: Dict[Any, Any]
+    d: Dict[Any, Any],
 ) -> Tuple[List[Tuple[KeyEntry, Any]], Context]:
     values, context = _dict_flatten(d)
     return [(MappingKey(k), v) for k, v in zip(context, values)], context
@@ -505,7 +501,7 @@ def _ordereddict_flatten(d: GenericOrderedDict[Any, Any]) -> Tuple[List[Any], Co
 
 
 def _ordereddict_flatten_with_keys(
-    d: GenericOrderedDict[Any, Any]
+    d: GenericOrderedDict[Any, Any],
 ) -> Tuple[List[Tuple[KeyEntry, Any]], Context]:
     values, context = _ordereddict_flatten(d)
     return [(MappingKey(k), v) for k, v in zip(context, values)], context
@@ -528,7 +524,7 @@ def _defaultdict_flatten(d: DefaultDict[Any, Any]) -> Tuple[List[Any], Context]:
 
 
 def _defaultdict_flatten_with_keys(
-    d: DefaultDict[Any, Any]
+    d: DefaultDict[Any, Any],
 ) -> Tuple[List[Tuple[KeyEntry, Any]], Context]:
     values, context = _defaultdict_flatten(d)
     _, dict_context = context
@@ -1016,33 +1012,32 @@ MapOnlyFn = Callable[[T], Callable[[Any], Any]]
 # These specializations help with type inference on the lambda passed to this
 # function
 @overload
-def map_only(__type_or_types_or_pred: Type2[T, S]) -> MapOnlyFn[Fn2[T, S, Any]]:
-    ...
+def map_only(__type_or_types_or_pred: Type2[T, S]) -> MapOnlyFn[Fn2[T, S, Any]]: ...
 
 
 @overload
-def map_only(__type_or_types_or_pred: Type3[T, S, U]) -> MapOnlyFn[Fn3[T, S, U, Any]]:
-    ...
+def map_only(
+    __type_or_types_or_pred: Type3[T, S, U],
+) -> MapOnlyFn[Fn3[T, S, U, Any]]: ...
 
 
 @overload
-def map_only(__type_or_types_or_pred: Type[T]) -> MapOnlyFn[Fn[T, Any]]:
-    ...
+def map_only(__type_or_types_or_pred: Type[T]) -> MapOnlyFn[Fn[T, Any]]: ...
 
 
 # This specialization is needed for the implementations below that call
 @overload
-def map_only(__type_or_types_or_pred: TypeAny) -> MapOnlyFn[FnAny[Any]]:
-    ...
+def map_only(__type_or_types_or_pred: TypeAny) -> MapOnlyFn[FnAny[Any]]: ...
 
 
 @overload
-def map_only(__type_or_types_or_pred: Callable[[Any], bool]) -> MapOnlyFn[FnAny[Any]]:
-    ...
+def map_only(
+    __type_or_types_or_pred: Callable[[Any], bool],
+) -> MapOnlyFn[FnAny[Any]]: ...
 
 
 def map_only(
-    __type_or_types_or_pred: Union[TypeAny, Callable[[Any], bool]]
+    __type_or_types_or_pred: Union[TypeAny, Callable[[Any], bool]],
 ) -> MapOnlyFn[FnAny[Any]]:
     """
     Suppose you are writing a tree_map over tensors, leaving everything
@@ -1093,8 +1088,7 @@ def tree_map_only(
     func: Fn[T, Any],
     tree: PyTree,
     is_leaf: Optional[Callable[[PyTree], bool]] = None,
-) -> PyTree:
-    ...
+) -> PyTree: ...
 
 
 @overload
@@ -1103,8 +1097,7 @@ def tree_map_only(
     func: Fn2[T, S, Any],
     tree: PyTree,
     is_leaf: Optional[Callable[[PyTree], bool]] = None,
-) -> PyTree:
-    ...
+) -> PyTree: ...
 
 
 @overload
@@ -1113,8 +1106,7 @@ def tree_map_only(
     func: Fn3[T, S, U, Any],
     tree: PyTree,
     is_leaf: Optional[Callable[[PyTree], bool]] = None,
-) -> PyTree:
-    ...
+) -> PyTree: ...
 
 
 @overload
@@ -1123,8 +1115,7 @@ def tree_map_only(
     func: FnAny[Any],
     tree: PyTree,
     is_leaf: Optional[Callable[[PyTree], bool]] = None,
-) -> PyTree:
-    ...
+) -> PyTree: ...
 
 
 def tree_map_only(
@@ -1142,8 +1133,7 @@ def tree_map_only_(
     func: Fn[T, Any],
     tree: PyTree,
     is_leaf: Optional[Callable[[PyTree], bool]] = None,
-) -> PyTree:
-    ...
+) -> PyTree: ...
 
 
 @overload
@@ -1152,8 +1142,7 @@ def tree_map_only_(
     func: Fn2[T, S, Any],
     tree: PyTree,
     is_leaf: Optional[Callable[[PyTree], bool]] = None,
-) -> PyTree:
-    ...
+) -> PyTree: ...
 
 
 @overload
@@ -1162,8 +1151,7 @@ def tree_map_only_(
     func: Fn3[T, S, U, Any],
     tree: PyTree,
     is_leaf: Optional[Callable[[PyTree], bool]] = None,
-) -> PyTree:
-    ...
+) -> PyTree: ...
 
 
 @overload
@@ -1172,8 +1160,7 @@ def tree_map_only_(
     func: FnAny[Any],
     tree: PyTree,
     is_leaf: Optional[Callable[[PyTree], bool]] = None,
-) -> PyTree:
-    ...
+) -> PyTree: ...
 
 
 def tree_map_only_(
@@ -1209,8 +1196,7 @@ def tree_all_only(
     pred: Fn[T, bool],
     tree: PyTree,
     is_leaf: Optional[Callable[[PyTree], bool]] = None,
-) -> bool:
-    ...
+) -> bool: ...
 
 
 @overload
@@ -1219,8 +1205,7 @@ def tree_all_only(
     pred: Fn2[T, S, bool],
     tree: PyTree,
     is_leaf: Optional[Callable[[PyTree], bool]] = None,
-) -> bool:
-    ...
+) -> bool: ...
 
 
 @overload
@@ -1229,8 +1214,7 @@ def tree_all_only(
     pred: Fn3[T, S, U, bool],
     tree: PyTree,
     is_leaf: Optional[Callable[[PyTree], bool]] = None,
-) -> bool:
-    ...
+) -> bool: ...
 
 
 def tree_all_only(
@@ -1249,8 +1233,7 @@ def tree_any_only(
     pred: Fn[T, bool],
     tree: PyTree,
     is_leaf: Optional[Callable[[PyTree], bool]] = None,
-) -> bool:
-    ...
+) -> bool: ...
 
 
 @overload
@@ -1259,8 +1242,7 @@ def tree_any_only(
     pred: Fn2[T, S, bool],
     tree: PyTree,
     is_leaf: Optional[Callable[[PyTree], bool]] = None,
-) -> bool:
-    ...
+) -> bool: ...
 
 
 @overload
@@ -1269,8 +1251,7 @@ def tree_any_only(
     pred: Fn3[T, S, U, bool],
     tree: PyTree,
     is_leaf: Optional[Callable[[PyTree], bool]] = None,
-) -> bool:
-    ...
+) -> bool: ...
 
 
 def tree_any_only(

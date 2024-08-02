@@ -116,6 +116,7 @@ class Embedding(torch.nn.Module):
         torch.Size([9, 12])
 
     """
+
     _version = 1
 
     def __init__(
@@ -281,6 +282,7 @@ class EmbeddingBag(Embedding):
         torch.Size([5, 12])
 
     """
+
     _version = 1
 
     def __init__(

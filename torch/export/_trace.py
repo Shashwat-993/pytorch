@@ -1131,9 +1131,9 @@ def _get_module_call_graph(
     """
     gm: torch.fx.GraphModule = export_artifact.aten.gm
     export_graph_signature: ExportGraphSignature = export_artifact.aten.sig
-    module_call_specs: Dict[
-        str, Dict[str, TreeSpec]
-    ] = export_artifact.module_call_specs
+    module_call_specs: Dict[str, Dict[str, TreeSpec]] = (
+        export_artifact.module_call_specs
+    )
     out_spec: TreeSpec = export_artifact.out_spec
 
     # Make module signatures.

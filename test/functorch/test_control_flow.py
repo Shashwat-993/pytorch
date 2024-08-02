@@ -2090,15 +2090,19 @@ def forward(self, x_1):
                 torch._enable_functionalization(reapply_views=False)
                 try:
                     func_args = pytree.tree_map(
-                        lambda x: torch._to_functional_tensor(x)
-                        if isinstance(x, torch.Tensor)
-                        else x,
+                        lambda x: (
+                            torch._to_functional_tensor(x)
+                            if isinstance(x, torch.Tensor)
+                            else x
+                        ),
                         args,
                     )
                     func_kwargs = pytree.tree_map(
-                        lambda x: torch._to_functional_tensor(x)
-                        if isinstance(x, torch.Tensor)
-                        else x,
+                        lambda x: (
+                            torch._to_functional_tensor(x)
+                            if isinstance(x, torch.Tensor)
+                            else x
+                        ),
                         kwargs,
                     )
                     return func(*func_args, **func_kwargs)

@@ -510,7 +510,7 @@ def dynamic_dim(t: torch.Tensor, index: int, debug_name: Optional[str] = None):
     if index >= t.dim():
         raise UserError(
             UserErrorType.DYNAMIC_DIM,
-            f"Expected the dimension passed to dynamic_dim to be in the range [0:{t.dim()-1}]"
+            f"Expected the dimension passed to dynamic_dim to be in the range [0:{t.dim() - 1}]"
             f" but got {index}, which is out of bounds for the given tensor.",
         )
 
@@ -927,7 +927,7 @@ def _process_dynamic_shapes(
 
 
 def _get_dim_name_mapping(
-    dynamic_shapes: Union[Dict[str, Any], Tuple[Any], List[Any], None]
+    dynamic_shapes: Union[Dict[str, Any], Tuple[Any], List[Any], None],
 ):
     name_to_dim = {}
     for dim in tree_flatten(

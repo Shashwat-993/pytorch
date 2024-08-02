@@ -338,9 +338,9 @@ class OuterLoopFusedSchedulerNode(FusedSchedulerNode):
         outer_fused_nodes: List[Union[FusedSchedulerNode, SchedulerNode]],
         outer_loop_fusion_depth,
     ):
-        self.outer_fused_nodes: List[
-            Union[FusedSchedulerNode, SchedulerNode]
-        ] = outer_fused_nodes
+        self.outer_fused_nodes: List[Union[FusedSchedulerNode, SchedulerNode]] = (
+            outer_fused_nodes
+        )
         self.outer_loop_fusion_depth = outer_loop_fusion_depth
         flatten_snodes = []
         for _node in self.outer_fused_nodes:
@@ -966,9 +966,14 @@ class CppVecOverrides(CppOverrides):
                 if scalars and vectors:
                     assert isinstance(V.kernel, CppVecKernel)
                     new_args = [
-                        V.kernel.broadcast(new_arg)
-                        if isinstance(new_arg, CppCSEVariable) and not new_arg.is_vec
-                        else new_arg
+                        (
+                            V.kernel.broadcast(new_arg)
+                            if (
+                                isinstance(new_arg, CppCSEVariable)
+                                and not new_arg.is_vec
+                            )
+                            else new_arg
+                        )
                         for new_arg in new_args
                     ]
 

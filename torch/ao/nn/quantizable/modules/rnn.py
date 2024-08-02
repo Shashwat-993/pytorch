@@ -33,6 +33,7 @@ class LSTMCell(torch.nn.Module):
         ...     hx, cx = rnn(input[i], (hx, cx))
         ...     output.append(hx)
     """
+
     _FLOAT_MODULE = torch.nn.LSTMCell
 
     def __init__(
@@ -329,6 +330,7 @@ class LSTM(torch.nn.Module):
         >>> print(rnn.layers[0].weight_hh)
         AssertionError: There is no reverse path in the non-bidirectional layer
     """
+
     _FLOAT_MODULE = torch.nn.LSTM
 
     def __init__(
